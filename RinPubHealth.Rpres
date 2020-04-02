@@ -1,0 +1,150 @@
+RinPubHealth
+========================================================
+author: Mirjam Allik
+date: May 28, 2020
+autosize: true
+
+
+Welcome!
+========================================================
+
+Who we are
+
+- Mirjam Allik, University of Glasgow
+- Jaime Villacampa, Publich Health Scotland
+- Andrew Baxter, University of Glasgow
+
+Thank you!
+
+- SSM&PH
+- MRC/CSO SPHSU at the University of Glasgow
+
+
+Plan for the day
+========================================================
+
+Morning: Public health R packages, focus on standardized rates, health inequality measures
+
+
+Afternoon: Presenting results with Shiny
+
+
+Tomorrow and ever after: Stay in touch, let us know what you are working on and keep developing
+
+
+
+Materials and data
+========================================================
+
+Slides, code and data from today can be downloaded from 
+
+[Include image of project folder?]
+
+
+
+How to find packages?
+========================================================
+
+
+- Google "how to x, y, z in R"
+
+- search Metacran <https://www.r-pkg.org/>; Crantastic! <https://crantastic.org/>; RDRR <https://rdrr.io/>
+
+- R package `sos` search (searches function help files)
+
+
+
+Public health packages in R
+========================================================
+
+There are a lot of public health methods out there!
+
+There are a lot of packages out there!
+- about 150-200 packages relevant to epidemiology, public health
+- some very small/specific
+
+On paper many packages seem to do the same thing, but:
+- types/format of data
+- flexibility
+- methods
+
+
+
+Standardization and health inequalities
+========================================================
+
+Standardized rates
+
+- Direct (and indirect) standardised rates
+
+Health inequality measures
+
+- Slope and relative indices of inequality
+
+
+
+
+How to choose?
+================================================================
+
+Does it do what you need?
+- Look up examples
+
+Is it validated?
+- Is someone else using it
+- Who built the package
+
+Is it convenient?
+
+
+
+
+Package downloads
+===============================================================
+```{r echo = F, fig.width = 20}
+library(dlstats)
+library(ggplot2)
+
+x <- cran_stats(c("popEpi", "epiR", "epitools", "dsr", "PHEindicatormethods", "dsrTest"))
+#head(x)
+
+ggplot(x, aes(end, downloads, group=package, color=package)) +
+    geom_line() + geom_point(aes(shape=package))
+```
+
+
+
+A reality check
+==================================================
+
+In most cases building packages is voluntary work (read: "Not much time!")
+
+
+
+Standardized rates
+==================================================
+
+*epiR*, *epitools*, *PHEindicatormethods*, *dsr*, *dsrTest*, *popEpi*, *SocEpi*
+
+- Use aggregated data: *epiR*, *epitools*, *PHEindicatormethods*, *dsr*, *dsrTest*
+
+    + Can easily be used on aggregate data with subgroups: *epiR*, *PHEindicatormethods*, *dsr*
+
+- Disaggregated data: *popEpi*, *SocEpi*
+
+
+
+
+Useful references
+=======================================================
+Spencer Graves Sundar Dorai-Raj Romain Francois "sos: Searching Help Pages of R Packages" The R Journal, vol. 1/2 (2009), pp. 56-59
+
+Data sources
+
+ONS Age-standardised rates template http://www.ons.gov.uk/ons/guide-method/user-guidance/health-and-life-events/age-standardised-mortality-rate-calculation-template-using-the-2013-esp.xls
+
+NRS Vital Events Reference Tables 2012 
+https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/vital-events-reference-tables/2012/section-5-deaths
+
+NRS Population Estimates Time Series Data
+https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/population/population-estimates/mid-year-population-estimates/population-estimates-time-series-data
