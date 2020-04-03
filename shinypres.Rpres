@@ -1,6 +1,6 @@
 shinypres
 ========================================================
-author: Jaime Villacampa  
+author: Jaime Villacampa and Andrew Baxter
 date: 28 May 2020
 autosize: true
 
@@ -113,24 +113,27 @@ Health inequalities resources
 
 - <https://www.scotpho.org.uk/comparative-health/measuring-inequalities/>
 - Cover open data platforms:
-<https://statistics.gov.scot/home>
-<https://www.opendata.nhs.scot/>
-<https://fingertips.phe.org.uk/>
+- <https://statistics.gov.scot/home>
+- <https://www.opendata.nhs.scot/>
+- <https://fingertips.phe.org.uk/>
 
 
 Gallery of public health Shiny apps
 ========================================================
 
+Check <https://shiny.rstudio.com/gallery/>
 Include link to app and code
-Perhaps we can embed the app in the presentation?
+Perhaps we can embed the apps in the presentation?
 - <https://scotland.shinyapps.io/ScotPHO_profiles_tool/>
 - <https://scotland.shinyapps.io/scotpho-burden-disease/>
 - <https://mirjamallik.shinyapps.io/SIH_ethnicity/>
+
 
 Shiny resources
 ========================================================
 
 Take the most important ones from here <https://docs.google.com/document/d/1dU4WAneJK8jZ6A9pHcITLvx2dLbnGgkCY7O--LoVsGo/edit>
+
 
 End
 ========================================================
