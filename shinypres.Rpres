@@ -40,6 +40,7 @@ Differences with normal R code
 - Code divided in three parts: global, ui and server
 - The code can respond to user input
 - Ability to integrate CSS/HTML/Javascript
+- Differences in the order of things run
 
 The parts of an app
 ========================================================
@@ -55,7 +56,7 @@ Static first, adding interactivity later
 Introduce static chart, then introduce the dropdowns, then explain reactivity
 Explain things like the run app button
 Explain the UI setup and how add widgets
-
+What parts of the app run first and in what order
 
 Exercise: building a simple Shiny app
 ========================================================
