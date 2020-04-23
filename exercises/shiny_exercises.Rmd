@@ -1,0 +1,116 @@
+---
+title: "Shiny exercises"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+# include something so it installs the package if not there 9or shiny apps.io
+library(learnr)
+library(readr)
+knitr::opts_chunk$set(echo = FALSE)
+
+# Loading data
+# rii_sii_ethnicity <- read_csv("data/RII_SII_by_ethnicity_age_dep_2011.csv")
+# st_rates_ethnicity <- read_csv("data/st_rates_by_ethnicity_age_dep_2011.csv")
+
+
+```
+
+
+## Topic 1
+
+### Exercise 
+
+*Here's a simple exercise with an empty code chunk provided for entering the answer.*
+
+Write the R code required to add two plus two:
+
+```{r shiny-test, exercise=TRUE}
+###############################################.
+## UI ----
+###############################################.
+ui <- fluidPage("Scotland Test", 
+                h3("Hello World!"),
+                br()
+                # selectInput("age", "Select age group", choices = age_grps),
+                # selectInput("depr", "Select deprivation group", choices = depr_grps),
+                # plotOutput("barplot")
+                
+) # fluidPage bracket
+
+###############################################.
+## Server ----
+###############################################.
+
+server <- function(input, output, session) {
+#   
+#   # Filtering data based on user input
+# st_rates_filtered <- reactive({
+#   st_rates_ethnicity %>% 
+#     filter(age == input$age &
+#              ses == input$depr)
+# })
+# 
+#   output$barplot <- renderPlot({
+#     ggplot(st_rates_filtered(), aes(x = ethnicity, y = rate)) +
+#       geom_bar(stat = "identity")
+#   })
+  
+} # end of server
+
+shinyApp(ui = ui, server = server) # Running the app
+
+```
+
+### Exercise with Code
+
+*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
+
+Now write a function that adds any two numbers and then call it:
+
+```{r add-function, exercise=TRUE, exercise.lines = 5}
+add <- function() {
+  
+}
+```
+
+## Topic 2
+
+### Exercise with Hint
+
+*Here's an exercise where the chunk is pre-evaulated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+
+Modify the following code to limit the number of rows printed to 5:
+
+```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
+mtcars
+```
+
+```{r print-limit-hint}
+head(mtcars)
+```
+
+### Quiz
+
+*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
+
+Some questions to verify that you understand the purposes of various base and recommended R packages:
+
+```{r quiz}
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE)
+  )
+)
+```
+
