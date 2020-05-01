@@ -90,8 +90,10 @@ There is more than code to Shiny apps
 Add-ons
 ========================================================
 
-This could be an optional exercise or just mentioning the options available:
-shinycssloaders, shinyWidgets, shinyjs, extra CSS, total customisation
+Lots of options to customise your app, some easier than others:
+- Packages: shinyWidgets, shinythemes and shinycssloaders
+- Packages: shinyjs, shinyBS
+- Create your own HTML, CSS or JavaScript
 
 
 Tricks for debugging a Shiny app
@@ -112,18 +114,34 @@ Some more complex things, or how to do specific things
 Gallery of public health Shiny apps
 ========================================================
 
-Check <https://shiny.rstudio.com/gallery/>
-Include link to app and code
-Perhaps we can embed the apps in the presentation?
-- <https://scotland.shinyapps.io/ScotPHO_profiles_tool/>
-- <https://scotland.shinyapps.io/scotpho-burden-disease/>
-- <https://mirjamallik.shinyapps.io/SIH_ethnicity/>
+There are many examples of Shiny apps presenting public health data.
+A good place to start looking for examples is the official gallery:
+<https://shiny.rstudio.com/gallery/>
 
-Test app
+
+SIH ethnicity
 ========================================================
 
 <iframe src="https://mirjamallik.shinyapps.io/SIH_ethnicity/" width="900" height="780" style="border: none;"></iframe>
 
+<https://mirjamallik.shinyapps.io/SIH_ethnicity/>
+
+ScotPHO profiles tool
+========================================================
+
+<iframe src="https://scotland.shinyapps.io/ScotPHO_profiles_tool/" width="900" height="780" style="border: none;"></iframe>
+
+<https://scotland.shinyapps.io/ScotPHO_profiles_tool/>
+<https://github.com/ScotPHO/scotpho-profiles-tool>
+
+
+Scottish burden of disease
+========================================================
+
+<iframe src="https://scotland.shinyapps.io/scotpho-burden-disease/" width="900" height="780" style="border: none;"></iframe>
+
+
+<https://scotland.shinyapps.io/scotpho-burden-disease/>
 
 End
 ========================================================
