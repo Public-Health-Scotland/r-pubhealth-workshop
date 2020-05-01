@@ -11,12 +11,14 @@ What is Shiny?
 - Translates R code into web code: HTML, CSS and JavaScript.
 - Works well with data.
 
-Why to use Shiny?
+Why use Shiny?
 ========================================================
 
 - Price
 - Flexibility
 - Potential
+- Public engagement
+- Reproducibility and open research
 
 Advantages
 ========================================================
@@ -47,7 +49,9 @@ The parts of an app
 
 - Global
 - Server
+  - Does all the hard work! Where the R code goes
 - UI (user interface)
+  - Builds the html page
 
 How to build a shiny app
 ========================================================
@@ -81,6 +85,15 @@ Ouput funcions - some examples
 - `textOutput(outputId = 'x')`
 - `plotOutput(outputId = 'y')`
 - `dataTableOutput(outputId = 'z')`
+
+The app flow
+========================================================
+
+*intype*Input(InputId = "a", ...)
+
+output$x <- render*Outtype*()
+
+*outtype*Output(outputId = "x")
   
 ========================================================
 <!-- Static first, adding interactivity later -->
@@ -140,16 +153,6 @@ Extra exercises
 Some more complex things, or how to do specific things
 
 
-Health inequalities resources
-========================================================
-
-- <https://www.scotpho.org.uk/comparative-health/measuring-inequalities/>
-- Cover open data platforms:
-- <https://statistics.gov.scot/home>
-- <https://www.opendata.nhs.scot/>
-- <https://fingertips.phe.org.uk/>
-
-
 Gallery of public health Shiny apps
 ========================================================
 
@@ -160,11 +163,10 @@ Perhaps we can embed the apps in the presentation?
 - <https://scotland.shinyapps.io/scotpho-burden-disease/>
 - <https://mirjamallik.shinyapps.io/SIH_ethnicity/>
 
-
-Shiny resources
+Test app
 ========================================================
 
-Take the most important ones from here <https://docs.google.com/document/d/1dU4WAneJK8jZ6A9pHcITLvx2dLbnGgkCY7O--LoVsGo/edit>
+<iframe src="https://mirjamallik.shinyapps.io/SIH_ethnicity/" width="900" height="780" style="border: none;"></iframe>
 
 
 End

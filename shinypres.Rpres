@@ -11,12 +11,14 @@ What is Shiny?
 - Translates R code into web code: HTML, CSS and JavaScript.
 - Works well with data.
 
-Why to use Shiny?
+Why use Shiny?
 ========================================================
 
 - Price
 - Flexibility
 - Potential
+- Public engagement
+- Reproducibility and open research
 
 Advantages
 ========================================================
@@ -47,7 +49,9 @@ The parts of an app
 
 - Global
 - Server
+  - Does all the hard work! Where the R code goes
 - UI (user interface)
+  - Builds the html page
 
 How to build a shiny app
 ========================================================
@@ -81,6 +85,15 @@ Ouput funcions - some examples
 - `textOutput(outputId = 'x')`
 - `plotOutput(outputId = 'y')`
 - `dataTableOutput(outputId = 'z')`
+
+The app flow
+========================================================
+
+*intype*Input(InputId = "a", ...)
+
+output$x <- render*Outtype*()
+
+*outtype*Output(outputId = "x")
   
 ========================================================
 <!-- Static first, adding interactivity later -->
