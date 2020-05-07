@@ -2,35 +2,41 @@ library(shiny)
 
 
 shinyUI(fluidPage(
-
-    # Application title
+    
+    
+    # Application title -------------------------------------------------------
     titlePanel("Examples of inputs and outputs"),
-
-    # Sidebar with a slider input for number of bins
+    
+    
+    # -------------------------------------------------------------------------
     sidebarLayout(
+        # Sidebar - usually containing inputs -------------------------------------
+        
         sidebarPanel(
-            sliderInput(inputId = "bins",
-                        label = "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30),
-            
-            textInput(inputId = "gtitle",
-                      label = "Graph title",
-                      value = "Histogram of BMI"),
-            
-            checkboxInput(inputId = "checks",
-                          label = "Check boxes"),
-            
-            dateInput("date",
-                      "My birthday",
-                      value = "1987-05-17",
-                      format = "d MM yyyy")
+            textInput(inputId = "title", label = "Plot Title", value = "Comparing cars"),
+            checkboxInput(inputId = "ci", label = "Show confidence intervals"),
+            dateInput(inputId = "date", label = "date", value = "2020-03-01"),
+            numericInput(inputId = "bins", label = "Histogram bins", value = 30),
+            radioButtons(inputId = "col", label = "Colour", choices = c("darkgoldenrod", "red", "orchid2")),
+            selectInput(inputId = "comparator", label = "comparator", choices = c("mpg", "disp", "hp", "drat", "wt", "qsec", "am", 
+                                                                                  "gear", "carb"))
         ),
-
-        # Show a plot of the generated distribution
+        
+        
+        # Main panel - usually containing outputs ---------------------------------
+        
         mainPanel(
-            plotOutput("distPlot")
+            column(8,
+                   plotOutput("distPlot"),
+                   plotOutput("dotPlot")
+            ),
+            column(4,
+                   DT::dataTableOutput("data")
+            )
         )
+        
+        
+        
+        # -------------------------------------------------------------------------
     )
 ))
