@@ -10,8 +10,7 @@ library(shiny)
 ## UI ----
 ###############################################.
 # User interface - layout, filters and text
-ui <- fluidPage("Shiny app", 
-                h3("Hello World!")
+ui <- fluidPage("Shiny app"
                 
 ) # fluidPage bracket
 
