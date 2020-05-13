@@ -1,4 +1,4 @@
-# Solved script for exercise found https://github.com/jvillacampa/r-pubhealth-workshop/wiki/Session-2-Exercise-1---simple-Shiny-app
+# Solved script for exercise found https://github.com/ScotPHO/r-pubhealth-workshop/wiki/Session-2-Exercise-1---simple-Shiny-app
 # To run, it needs to be in its a folder that includes a subfolder called data and
 # include the dataset "st_rates_by_ethnicity_age_dep_2011.csv".
 
@@ -39,10 +39,14 @@ server <- function(input, output, session) {
   
   
   # Creating table to show structure of data
-  output$table <- renderTable({ head(ethinicity_filtered ) })
+  output$table <- renderTable({ 
+    head(ethinicity_filtered ) 
+    })
   
   # Title for the table
-  output$table_title<- renderText({ paste0("Data for the ethnicity ", ethnicity_chosen ) })
+  output$table_title<- renderText({ 
+    paste0("Data for the ethnicity ", ethnicity_chosen ) 
+    })
   
 } # end of server
 
