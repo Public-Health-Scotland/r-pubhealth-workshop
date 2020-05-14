@@ -10,12 +10,15 @@ shinyServer(function(input, output) {
             select(cyl, input$comparator)
     })
     
+    output$dateTitle <- renderText({paste("Analysis on", format(input$date, "%d %B %Y"))})
+    
+    
     output$distPlot <- renderPlot({
         
         ggplot(df(), aes_string(x = input$comparator)) +
             geom_histogram(colour = input$col, fill = input$col,
                            bins = input$bins) +
-            ggtitle(paste(input$title, input$date))
+            ggtitle(input$title)
 
     })
     
