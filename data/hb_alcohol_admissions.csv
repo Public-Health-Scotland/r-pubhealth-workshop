@@ -1,4 +1,4 @@
-indicator,area_name,area_code,period,numerator,rate,lower_confidence_interval,upper_confidence_interval,comparator_value,comparator_name,definition,data_source
+indicator,area_name,code,period,numerator,rate,lower_confidence_interval,upper_confidence_interval,comparator_value,comparator_name,definition,data_source
 Alcohol-related hospital admissions,NHS Western Isles,S08000028,2018/19 financial year,276,995.51,878.75,1123.15,669.13,Scotland,"Age-sex standardised rate per 100,000",ISD Scotland (SMR01)
 Alcohol-related hospital admissions,NHS Greater Glasgow & Clyde,S08000031,2018/19 financial year,10299,927.73,909.64,946.1,669.13,Scotland,"Age-sex standardised rate per 100,000",ISD Scotland (SMR01)
 Alcohol-related hospital admissions,NHS Lanarkshire,S08000032,2018/19 financial year,5505,849.34,826.9,872.24,669.13,Scotland,"Age-sex standardised rate per 100,000",ISD Scotland (SMR01)
