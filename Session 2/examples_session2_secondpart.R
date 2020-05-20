@@ -23,17 +23,7 @@ View(rii_sii_ethnicity)
 ###############################################.
 ## Empty app ----
 ###############################################.
-# User interface - layout, filters and text
-ui <- fluidPage("Shiny app"
-                
-) # fluidPage bracket
-
-server <- function(input, output, session) {
-  
-} # end of server
-
-shinyApp(ui = ui, server = server) # Running the app
-
+file.edit('exercises/empty_shiny_app.R')
 
 ###############################################.
 ## Reactivity - before including it ----
@@ -98,32 +88,6 @@ shinyApp(ui = ui, server = server) # Running the app
 
 
 ###############################################.
-## Reactivity -  reactive  objects ----
-###############################################.
-
-# User interface - layout, filters and text
-ui <- fluidPage("Shiny app",
-               selectInput(inputId = "age_group", label = "Select an age group", 
-                           choices = unique(st_rates_ethnicity$age)),
-               tableOutput("table")
-) 
-
-
-server <- function(input, output, session) {
-  
-  rates_filtered <- reactive({
-    st_rates_ethnicity %>% filter(input$age_group == age)
-  })
-  
-  output$table <- renderTable({ 
-    rates_filtered() 
-  })
-  
-} 
-
-shinyApp(ui = ui, server = server) # Running the app
-
-###############################################.
 ## Reactivity -  it helps to start static first ----
 ###############################################.
 # Imagine you want a bar plot with rates for overall age group
@@ -145,18 +109,50 @@ ggplot(rates_filtered, aes(x = ses, y = rate)) +
 ui <- fluidPage("Shiny app",
                 selectInput(inputId = "ethnicity", label = "Select an ethnicity", 
                             choices = unique(st_rates_ethnicity$ethnicity)),
-                tableOutput("table")
+                plotOutput("plot")
 ) 
 
 
 server <- function(input, output, session) {
   
+  output$plot <- renderPlot({ 
+    rates_filtered <-  st_rates_ethnicity %>% 
+      filter(ethnicity == input$ethnicity &
+               outcome == "poor GH" &
+               age == "all")
+    
+    ggplot(rates_filtered, aes(x = ses, y = rate)) +
+      geom_bar(stat = "identity") 
+  })
+  
+} 
+
+shinyApp(ui = ui, server = server) # Running the app
+
+###############################################.
+## Reactivity -  reactive  objects ----
+###############################################.
+ui <- fluidPage("Shiny app",
+                selectInput(inputId = "ethnicity", label = "Select an ethnicity", 
+                            choices = unique(st_rates_ethnicity$ethnicity)),
+                tableOutput("table"),
+                plotOutput("plot")
+) 
+
+
+server <- function(input, output, session) {
+  
+  # Adding a reactive object allows us to use it in multiple renders
   rates_filtered <- reactive({
     st_rates_ethnicity %>% 
       filter(ethnicity == input$ethnicity &
                outcome == "poor GH" &
                age == "all")
     
+  })
+  
+  output$table <- renderTable({ 
+    rates_filtered() 
   })
   
   output$plot <- renderPlot({ 
