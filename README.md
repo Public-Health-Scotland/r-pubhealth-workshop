@@ -4,6 +4,7 @@ Repository containing materials for workshop on R in Public Health covering topi
 For structure and exercises of the workshop, please see: https://github.com/ScotPHO/r-pubhealth-workshop/wiki
 
 - Session 1 - Code used for the first part of the workshop
+- Session 2 - Code for Session 2.
 - data - data that will be used throughout the workshop
 - exercises - exercises scripts for both sessions.
-- Example - code for Session 2.
+
