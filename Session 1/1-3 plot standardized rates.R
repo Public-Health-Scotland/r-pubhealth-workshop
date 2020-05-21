@@ -7,14 +7,14 @@
 
 library(ggplot2)
 library(gridExtra)
-library(dplyr)
-library(SocEpi)
+require(dplyr)
+require(SocEpi)
 
-# Read data
-d <- health_data # package SocEpi needs to be loaded for this
+# Read data, if not yet read into R
+# package SocEpi needs to be loaded for this
+d <- health_data 
 head(d)
 
-table(d$ethnicity)
 
 # rates for White Irish ethnicities by ses (quintiles)
 irish_rate <- st_rate(data = d, health = bad, population = pop, ses = quintile, age = age, groups = ethnicity == "Irish") 

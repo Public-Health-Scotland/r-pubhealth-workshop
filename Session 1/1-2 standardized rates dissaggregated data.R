@@ -1,20 +1,21 @@
 # Public Health Tools in R
 # Calculating standardised rates
-# Disaggregated data
+# Disaggregated data (small-area and individual level data)
 # Mirjam Allik
 # May 2020
 
 
-# If you have these packages already istalled you can skip this stage
-install.packages("popEpi")
+# If you have these packages already installed you can skip this stage
+install.packages(c("popEpi"))
+devtools::install_github("m-allik/SocEpi")
 
 # Load packages
 library(popEpi)
 library(SocEpi)
-library(dplyr)
-library(PHEindicatormethods)
+require(PHEindicatormethods)
+require(dplyr)
 
-# Dissagregated small area data
+# Disagregated small-area data
 # We use postcode sector level self-rated health data from 2011 Scottish Census
 
 d <- health_data # package SocEpi needs to be loaded for this
@@ -23,13 +24,14 @@ head(d)
 ?health_data # to look up data dictionary
 
 # Run summaries to get a sense of the data
-table(d$age)
+tapply(d$pop, d$ethnicity, sum)
 
 
 # popEpi, uses disaggregated data
 # ===============================================================================
 # https://cran.r-project.org/web/packages/popEpi/index.html
 
+# Many built in st populations, but not 2013 ESP
 # define ESP 2013
 esp13 <- c(5000, 5500, 5500, 5500, 6000, 6000, 6500, 7000, 7000, 7000, 7000, 6500, 6000, 5500, 5000, 4000, 2500, 2500)
 length(esp13)
@@ -40,7 +42,7 @@ sum(esp13)
 # Rates for all ethnicities
 rate(d, obs = bad, pyrs = pop, adjust = age, weights = esp13, subset = ethnicity == "all")
 
-# Note, you may get a waring about integer overflow
+# Note, you may get a warning about integer overflow
 # This seems to be an R, rather than a package issue
 # https://stackoverflow.com/questions/8804779/what-is-integer-overflow-in-r-and-how-can-it-happen#8804991
 
@@ -59,7 +61,7 @@ rate(d, obs = bad, pyrs = pop, adjust = age, weights = esp13,
 
 # For age groups
 # ages 0-64
-esp13_g <- esp13[1:13] # select standard population for age grups
+esp13_g <- esp13[1:13] # select standard population for age groups
 
 d %>% filter(age %in% 1:13) %>%
  rate(obs = bad, pyrs = pop, adjust = age, weights = esp13_g, 
@@ -67,14 +69,14 @@ d %>% filter(age %in% 1:13) %>%
  mutate_at(vars(rate.adj:rate.hi), .funs = ~.*1000)
 
 
-# For multiple age groups simultaneously?
+# For multiple age groups simultaneously, say compare ages 15-29 and 30-44?
 
 
 
 # SocEpi
 # ===========================================================================
 # https://github.com/m-allik/SocEpi
-# Very much work in progress
+# Very much work in progress, aimed for work on health inequalities
 # May need to provide your own st population, but many built-in options
 
 ?st_rate # how to use the function
@@ -91,11 +93,9 @@ st_rate(d, bad, pop, quintile, age, ethnicity == "all") %>%
 # or save calculations and then filter
 my_rates <- st_rate(data = d, health = bad, population = pop, ses = quintile, age = age, groups = ethnicity == "all") 
 
-# For all ages
-my_rates %>% filter(age == "all")
-
-# For different age groups, across SES
-my_rates %>% filter(ses == "overall")
+my_rates %>% filter(age == "all") # For all ages
+my_rates %>% filter(age == "15-29") # For all ages
+my_rates %>% filter(ses == "overall") # For different age groups, across SES
   
 
 # For quintiles and urban-rural 

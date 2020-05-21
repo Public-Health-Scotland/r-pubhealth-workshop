@@ -35,6 +35,8 @@ head(scot_d)
 # ===============================================================================
 # https://cran.r-project.org/web/packages/epitools/index.html
 
+?ageadjust.direct
+
 # Use eng_d data
 ageadjust.direct(eng_d$Deaths, eng_d$Population, stdpop = eng_d$ESP)
 ageadjust.direct(eng_d$Deaths, eng_d$Population, stdpop = eng_d$ESP)*100000 # Default 95% CI
@@ -57,7 +59,9 @@ mapply(ageadjust.direct, count = scot_d[, 3:5], pop = scot_d[, 6:8], MoreArgs = 
 # PHEindicatormethods
 # ===============================================================================
 # https://cran.r-project.org/web/packages/PHEindicatormethods/index.html
-# Has a built-in standard population also, but limited to ESP 2013 for 19 age groups from 0-4 to 90+
+# Has a built-in standard population, but limited to ESP 2013 for 19 age groups from 0-4 to 90+
+
+?phe_dsr
 
 # Rates for a single grooup
 phe_dsr(eng_d, Deaths, Population, ESP, stdpoptype = "field") # Default 95% CI
@@ -79,10 +83,13 @@ scot_d_long <- scot_d %>%
   separate(variable, c("variable", "sex"), sep = "_", fill = "right") %>%
   mutate(sex = ifelse(is.na(sex), "T", sex)) %>%
   spread(variable, n) %>%
-  arrange(sex, age)
+  arrange(sex, age) %>%
+  select(-ESP)
 
-# create standard population
-stp13 <- scot_d$ESP
+head(scot_d_long)
+
+# create standard population vector
+stp13 <- scot_d$ESP # could also have done stp13 <- c(1000, 4000, ...)
 
 scot_d_long  %>% 
   group_by(sex) %>% 

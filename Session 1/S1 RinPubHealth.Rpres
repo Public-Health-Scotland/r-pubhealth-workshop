@@ -33,7 +33,9 @@ Afternoon: Presenting results with Shiny
 
 Recap and wrap-up (15.30-16.00)
 
-Stay in touch, let us know what you are working on
+After webinar: evaluation survey
+
+Stay in touch, let us know what you are working on.
 
 
 Zoom housekeeping
@@ -174,7 +176,7 @@ Mortality and morbidity difficult to compare across nations $\Rightarrow$ direct
   - Weighted rates by 5-year age-groups (a reference/standard population is used as weights)
   - Usually weights sum to 100,000 or to 1
 
-$$ dsr = \frac{\sum_{k=1}^{n} P_k n_k}{\sum_{k=1}^{n} P_k} $$
+$$ dsr = \frac{\sum_{k=1}^{n} P_k m_k}{\sum_{k=1}^{n} P_k} $$
 
 Different methods for SE/CI
 
@@ -214,6 +216,7 @@ Very few packages
 Both can easily be used on data with subgroups
 
 </small>
+
 
 Data for examples
 ==================================================
