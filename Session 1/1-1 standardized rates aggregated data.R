@@ -23,11 +23,11 @@ library(tidyr)
 # Read data
 # =======================================================================
 # English data
-eng_d <- read.csv("Data/England_deaths.csv")
+eng_d <- read.csv("data/England_deaths.csv")
 head(eng_d)
 
 # Scottish data with multiple groups
-scot_d <- read.csv("Data/Scotland_deaths.csv")
+scot_d <- read.csv("data/Scotland_deaths.csv")
 head(scot_d)
 
 
