@@ -21,9 +21,13 @@ library(tidyr)
 
 
 # Read data
+# Note, you may need to check and change your working driectory to read in the data
+# To check your current working directory run getwd()
+# To set your working directory to r-pubhealth-workshop-master folder use 
+# setwd("path_on_your_computer/r-pubhealth-workshop-master/")
 # =======================================================================
 # English data
-eng_d <- read.csv("data/England_deaths.csv")
+eng_d <- read.csv("data/England_deaths.csv") # your working directory will need to be set to r-pubhealth-workshop-master
 head(eng_d)
 
 # Scottish data with multiple groups
@@ -38,7 +42,7 @@ head(scot_d)
 ?ageadjust.direct
 
 # Use eng_d data
-ageadjust.direct(eng_d$Deaths, eng_d$Population, stdpop = eng_d$ESP)
+ageadjust.direct(count = eng_d$Deaths, pop = eng_d$Population, stdpop = eng_d$ESP)
 ageadjust.direct(eng_d$Deaths, eng_d$Population, stdpop = eng_d$ESP)*100000 # Default 95% CI
 
 # How would you do that for age groups?
@@ -51,8 +55,9 @@ ageadjust.direct(eng_d35_54$Deaths, eng_d35_54$Population, stdpop = eng_d35_54$E
 ageadjust.direct(scot_d$deaths, scot_d$pop, stdpop = scot_d$ESP)*100000 # Default 95% CI
 ageadjust.direct(scot_d$deaths_M, scot_d$pop_M, stdpop = scot_d$ESP)*100000
 
-# or use mapply
-mapply(ageadjust.direct, count = scot_d[, 3:5], pop = scot_d[, 6:8], MoreArgs = list(stdpop = scot_d$ESP))*100000
+# or use mapply() - apply a function to multiple arguments
+mapply(ageadjust.direct, count = scot_d[, 3:5], pop = scot_d[, 6:8], 
+       MoreArgs = list(stdpop = scot_d$ESP))*100000
 
 
 
@@ -64,7 +69,7 @@ mapply(ageadjust.direct, count = scot_d[, 3:5], pop = scot_d[, 6:8], MoreArgs = 
 ?phe_dsr
 
 # Rates for a single grooup
-phe_dsr(eng_d, Deaths, Population, ESP, stdpoptype = "field") # Default 95% CI
+phe_dsr(data = eng_d, x = Deaths, n = Population, stdpop = ESP, stdpoptype = "field") # Default 95% CI
 
 # How would you do that for age groups?
 # for ages 35-54
@@ -83,18 +88,21 @@ scot_d_long <- scot_d %>%
   separate(variable, c("variable", "sex"), sep = "_", fill = "right") %>%
   mutate(sex = ifelse(is.na(sex), "T", sex)) %>%
   spread(variable, n) %>%
-  arrange(sex, age) %>%
-  select(-ESP)
+  arrange(sex, age) %>% # order the data by sex and age!
+  select(-ESP) # remove standard population also
 
 head(scot_d_long)
 
 # create standard population vector
 stp13 <- scot_d$ESP # could also have done stp13 <- c(1000, 4000, ...)
+stp13
+sum(stp13)
+length(stp13)
 
 scot_d_long  %>% 
-  group_by(sex) %>% 
-  phe_dsr(deaths, pop, stdpop = stp13, stdpoptype = "vector", type = "standard")
+  group_by(sex) %>% # group data
+  phe_dsr(deaths, pop, stdpop = stp13, stdpoptype = "vector") # implement actual standardization
 
 
-
+# If your age groups are not ordered you will get results, but these will be wrong!
 

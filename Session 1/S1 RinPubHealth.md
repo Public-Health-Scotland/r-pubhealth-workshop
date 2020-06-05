@@ -33,7 +33,7 @@ Afternoon: Presenting results with Shiny
 
 Recap and wrap-up (15.30-16.00)
 
-After webinar: evaluation survey
+After webinar: **Evaluation survey**
 
 Stay in touch, let us know what you are working on.
 
@@ -43,7 +43,7 @@ Zoom housekeeping
 <small>
 Video lectures:
   - Background and demonstrations
-  - Code available <https://github.com/ScotPHO/r-pubhealth-workshop>
+  - Code available
   - Participants will be muted
 
 Q&A sessions:
@@ -224,16 +224,6 @@ $\Rightarrow$ Examples in R
 
 
 
-Comparison of packages, Q&A
-=====================================================
-
-- Assume very different data structures
-
-- All require some link between age group and weight
-
-- Provide the same DSRs
-
-- Differences in methods for SE, CI and RII
 
 
 
@@ -246,8 +236,16 @@ Exercises
 
 
 
-Q&A
+Comparison of packages, Q&A
 =====================================================
+
+- Assume very different data structures
+
+- All require some link between age group and weight
+
+- Provide the same DSRs
+
+- Differences in methods for SE, CI and RII
 
 
 

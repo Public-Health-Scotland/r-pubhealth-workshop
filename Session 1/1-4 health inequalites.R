@@ -22,19 +22,21 @@ require(PHEindicatormethods)
 ?rii # how to use the function
 
 # RII using quintiles for "all"
-rii(data = d, health = bad, population = pop, ses = quintile, age = age, groups = ethnicity == "all", W = T)
+rii(data = d, health = bad, population = pop, ses = quintile, 
+    age = age, groups = ethnicity == "all", W = T)
 
 # SII using quintiles for "all"
-rii(data = d, health = bad, population = pop, ses = quintile, age = age, groups = ethnicity == "all", RII = F, W = T) 
+rii(data = d, health = bad, population = pop, ses = quintile, 
+    age = age, groups = ethnicity == "all", RII = F, W = T) 
 
 
-# SII for all ethnic groups simultaneously
-my_SII <- d %>% group_by(ethnicity) %>%
-  group_modify(~ rii(.x, bad, pop, quintile, age, RII = F, W = T))
+# RII for all ethnic groups simultaneously
+my_RII <- d %>% group_by(ethnicity) %>%
+  group_modify(~ rii(.x, bad, pop, quintile, age, W = T))
 
-head(my_SII)
+head(my_RII)
 
-my_SII %>% filter(age == "all")
+my_RII %>% filter(age == "all")
 
 
 
@@ -44,12 +46,13 @@ my_SII %>% filter(age == "all")
 # May need to supply your own standard population
 
 # define ESP 2013
-esp13 <- c(5000, 5500, 5500, 5500, 6000, 6000, 6500, 7000, 7000, 7000, 7000, 6500, 6000, 5500, 5000, 4000, 2500, 2500)
+esp13 <- c(5000, 5500, 5500, 5500, 6000, 6000, 6500, 7000, 7000, 
+           7000, 7000, 6500, 6000, 5500, 5000, 4000, 2500, 2500)
 
 
-# First, calculate rates
+# First, aggregate data and then calculate rates
 q_rates <- d %>% select(ethnicity, quintile, age, bad, pop) %>%
-  group_by(ethnicity, quintile, age) %>%
+  group_by(ethnicity, quintile, age) %>% # groupings for aggregation
   summarise_all(sum) %>% # aggregation
   group_by(quintile, ethnicity) %>%
   phe_dsr(bad, pop, stdpop = esp13, stdpoptype = "vector", type = "standard", multiplier = 1000) # rate calculation
@@ -58,9 +61,10 @@ head(q_rates)
 
 
 # RII & SII for "all"
-q_rates %>% group_by(ethnicity) %>%
-  phe_sii(quintile, total_pop, value, lower_cl = lowercl, upper_cl = uppercl, rii = TRUE)
+phe_rii <- q_rates %>% group_by(ethnicity) %>%
+  phe_sii(quintile, total_pop, value, lower_cl = lowercl, upper_cl = uppercl, rii = T) # SII/RII calculation
 
+phe_rii
 
 # SII only 
 q_rates %>% group_by(ethnicity) %>%
@@ -70,17 +74,10 @@ q_rates %>% group_by(ethnicity) %>%
 
 # Compare RII values
 # ====================================================================
-# RII for all ethnic groups simultaneously
-my_RII <- d %>% group_by(ethnicity) %>%
-  group_modify(~ rii(.x, bad, pop, quintile, age, W = T))
-my_RII_all <- my_RII %>% filter(age == "all") # select all age groups
+my_RII_all <- my_RII %>% filter(age == "all") # select all age groups 
+rii_data <- merge(my_RII_all, phe_rii, by = "ethnicity") # merge SocEpi RII with PHE RII
 
-# RII for all ethnic groups
-phe_rii <- q_rates %>% group_by(ethnicity) %>%
-  phe_sii(quintile, total_pop, value, lower_cl = lowercl, upper_cl = uppercl, rii = TRUE) 
-
-rii_data <- merge(my_RII_all, phe_rii, by = "ethnicity")
-
+rii_data
 
 # Comparison of RII values
 plot(rii_data$rii.x, rii_data$rii.y, xlab = "SocEpi RII", ylab = "PHE RII", 

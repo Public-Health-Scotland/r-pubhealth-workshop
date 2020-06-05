@@ -22,8 +22,8 @@ irish_rate <- st_rate(data = d, health = bad, population = pop, ses = quintile, 
 head(irish_rate)
 
 p1 <- irish_rate %>% 
-  filter(age == "0-64") %>%
-  filter(ses %in% 1:5) %>%
+  filter(age == "0-64") %>% # select age group
+  filter(ses %in% 1:5) %>% # select SES values
   mutate(ses = as.numeric(ses)) %>%
   ggplot(aes(x = ses, y = rate)) +
   geom_line() +
@@ -31,8 +31,8 @@ p1 <- irish_rate %>%
   ggtitle("Poor self-rated health \nWhite Irish 0-64") + xlab("Deprivation quintile") + ylab("Rate per 1000") +
   ylim(0, 80)
 
-x11()
-p1
+x11() # open plotting window
+p1 # draw plot
 
 p2 <- irish_rate %>% 
   filter(age == "15-29") %>%

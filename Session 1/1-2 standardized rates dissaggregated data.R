@@ -5,9 +5,13 @@
 # May 2020
 
 
+# Note, you may need Rtools for SocEpi. For this go here https://cran.r-project.org/bin/windows/Rtools/
+
 # If you have these packages already installed you can skip this stage
-install.packages(c("popEpi"))
-devtools::install_github("m-allik/SocEpi")
+install.packages(c("popEpi", "SocEpi"))
+
+# or from github, requires Rtools, for Rtools see https://cran.r-project.org/bin/windows/Rtools/
+# devtools::install_github("m-allik/SocEpi")
 
 # Load packages
 library(popEpi)
@@ -19,13 +23,16 @@ require(dplyr)
 # We use postcode sector level self-rated health data from 2011 Scottish Census
 
 d <- health_data # package SocEpi needs to be loaded for this
+# The data is also included in the data folder of the GitHub repository
+# read it using d <- read.csv("data/PS_SRH_ethnicity_2011.csv")
 head(d)
 
 ?health_data # to look up data dictionary
 
 # Run summaries to get a sense of the data
-tapply(d$pop, d$ethnicity, sum)
+tapply(d$pop, d$ethnicity, sum) # Number of people by ethnicity
 
+unique(d$age) # unique age group values
 
 # popEpi, uses disaggregated data
 # ===============================================================================
@@ -33,14 +40,15 @@ tapply(d$pop, d$ethnicity, sum)
 
 # Many built in st populations, but not 2013 ESP
 # define ESP 2013
-esp13 <- c(5000, 5500, 5500, 5500, 6000, 6000, 6500, 7000, 7000, 7000, 7000, 6500, 6000, 5500, 5000, 4000, 2500, 2500)
+esp13 <- c(5000, 5500, 5500, 5500, 6000, 6000, 6500, 7000, 7000, 7000, 7000, 
+           6500, 6000, 5500, 5000, 4000, 2500, 2500)
 length(esp13)
 sum(esp13)
 
 ?rate
 
 # Rates for all ethnicities
-rate(d, obs = bad, pyrs = pop, adjust = age, weights = esp13, subset = ethnicity == "all")
+rate(data = d, obs = bad, pyrs = pop, adjust = age, weights = esp13, subset = ethnicity == "all")
 
 # Note, you may get a warning about integer overflow
 # This seems to be an R, rather than a package issue
@@ -62,10 +70,11 @@ rate(d, obs = bad, pyrs = pop, adjust = age, weights = esp13,
 # For age groups
 # ages 0-64
 esp13_g <- esp13[1:13] # select standard population for age groups
+esp13_g
 
-d %>% filter(age %in% 1:13) %>%
+d %>% filter(age %in% 1:13) %>% # select age groups
  rate(obs = bad, pyrs = pop, adjust = age, weights = esp13_g, 
-      subset = ethnicity == "all") %>%
+      subset = ethnicity == "all") %>% # calculate rates
  mutate_at(vars(rate.adj:rate.hi), .funs = ~.*1000)
 
 
@@ -130,7 +139,7 @@ d %>% select(ethnicity, quintile, age, bad, pop) %>%
   group_by(ethnicity, quintile, age) %>% # group data for aggregations
   summarise_all(sum) %>% # aggregate
   group_by(quintile, ethnicity) %>% # group data for rate calculations
-  phe_dsr(bad, pop, stdpop = esp13, stdpoptype = "vector", type = "standard", multiplier = 1000) %>%
+  phe_dsr(bad, pop, stdpop = esp13, stdpoptype = "vector", type = "standard", multiplier = 1000) %>% # Rates calculated
   filter(ethnicity == "all")
 
 
@@ -150,8 +159,7 @@ d %>% select(ethnicity, quintile, age, bad, pop) %>%
 
 # When might this matter?
 my_age_groups <- c("0-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54")
-my_age_groups
-my_age_groups[order(my_age_groups)]
+my_age_groups[order(my_age_groups)] # look at the order of the data, note that age 5-9 is after 45-49
 
 # So, whenever using PHEindicatormethods make sure your data is ordered by age!
 
